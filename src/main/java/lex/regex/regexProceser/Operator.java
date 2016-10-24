@@ -3,13 +3,19 @@ package lex.regex.regexProceser;
 
 public class Operator implements Comparable<Operator>,Element{
 
-    char operator;
-    int priority;
-    boolean isConnection = false;
-    boolean single = false;
+    private char operator;
+    private int priority;
+
+    //用来充当连接运算符
+    private boolean isConnection = false;
+    private boolean single = false;
+
+    private String origin = null;
 
     //是否是连接运算符
     public Operator(){
+        // 随便找个符号表示连接
+        origin = "●";
         isConnection = true;
         priority = 2;
     }
@@ -20,6 +26,7 @@ public class Operator implements Comparable<Operator>,Element{
     //其次     连接
     //其次     |
     public Operator(char operator){
+        origin = ""+operator;
         this.operator = operator;
 
         switch(operator){
@@ -32,9 +39,11 @@ public class Operator implements Comparable<Operator>,Element{
 
             case '+':
                 priority = 4;
+                single = true;
                 break;
             case '*':
                 priority = 4;
+                single = true;
                 break;
 
         }
@@ -50,9 +59,12 @@ public class Operator implements Comparable<Operator>,Element{
         return single;
     }
 
+    public char getOperator() {
+        return operator;
+    }
 
     public String toString(){
-        return operator+"";
+        return origin+"";
     }
 
     @Override
@@ -72,5 +84,7 @@ public class Operator implements Comparable<Operator>,Element{
         }
 
     }
+
+
 
 }

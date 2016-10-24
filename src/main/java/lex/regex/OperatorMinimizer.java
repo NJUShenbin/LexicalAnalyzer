@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import static lex.util.SimplePatternMatcher.matchAll;
 /**
  * 消除. * | ( )之外的运算符,目前只有 [ 需要消除
+ * 去除多余括号
  */
 public class OperatorMinimizer {
     private String squareBracketRegex = "\\[.*?\\]";

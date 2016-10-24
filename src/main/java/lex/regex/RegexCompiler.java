@@ -21,7 +21,10 @@ public class RegexCompiler {
         });
 
         System.out.println("-----");
+
         System.out.println(patternRegexMap);
+
+        PatternRegexElementMap elementMap = new PatternRegexElementMap(patternRegexMap);
 
         return null;
     }
