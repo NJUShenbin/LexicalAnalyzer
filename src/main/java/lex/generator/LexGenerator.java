@@ -1,6 +1,6 @@
 package lex.generator;
 
-import lex.regex.FA;
+import lex.regex.fa.FA;
 
 import java.util.Map;
 

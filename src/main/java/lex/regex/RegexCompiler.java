@@ -1,6 +1,7 @@
 package lex.regex;
 
-import java.util.LinkedHashMap;
+import lex.regex.fa.FA;
+
 import java.util.Map;
 
 /**

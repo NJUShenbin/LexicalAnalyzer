@@ -3,7 +3,7 @@ package lex.mainFlow;
 import lex.generator.LexGenerator;
 import lex.lexfile.LexFileInfo;
 import lex.lexfile.LexFileParser;
-import lex.regex.FA;
+import lex.regex.fa.FA;
 import lex.regex.RegexCompiler;
 
 /**
