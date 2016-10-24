@@ -8,7 +8,7 @@ ws      {delim}+
 letter  [abcdefghijklnmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]
 digit   [0123456789]
 id      {letter}({letter}|{digit})*
-number  {digit}+(\.{digit}+)
+number  {digit}+(\.{digit}*)
 
 %%
 
