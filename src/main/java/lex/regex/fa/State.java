@@ -14,13 +14,13 @@ import java.util.*;
 public class State {
 
     boolean accept;
-    String patternId;
+    TreeSet<Integer> patternIds = new TreeSet<>();
 
     Multimap<Integer,State> multimap = LinkedHashMultimap.create();
     Set<State> epsilonStates = new LinkedHashSet<>();
 
 
-    String name = "default";
+    String name = null;
 
     public State(){}
 
@@ -40,6 +40,18 @@ public class State {
         return accept;
     }
 
+    public void setAccept(boolean accept) {
+        this.accept = accept;
+        if(!accept){
+            patternIds.clear();
+        }
+    }
+
+    public void setAccept(String patternId){
+        accept = true;
+        patternIds.add(Integer.parseInt(patternId));
+    }
+
     public Collection<State> move(Integer edge){
         if(edge==null){
             return epsilonStates;
@@ -56,12 +68,25 @@ public class State {
         }
     }
 
-    public String getPatternId(){
+    public void addEdge(Integer edge,Collection<State> nextStates){
+        if(edge==null){
+            epsilonStates.addAll(nextStates);
+        }else{
+            multimap.putAll(edge,nextStates);
+        }
+    }
+
+
+    public TreeSet<Integer> getPatternIds(){
         if (isAccept()){
-            return patternId;
+            return patternIds;
         }else{
             throw new RuntimeException("this state is not accepted state");
         }
+    }
+
+    public String getFirstPatternId(){
+        return patternIds.first().toString();
     }
 
     public Set<State> nextStates(){

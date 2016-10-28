@@ -1,22 +1,25 @@
 package lex.regex.regexProceser;
 
 
+import lombok.Getter;
+
 public class Operator implements Comparable<Operator>,Element{
 
     private char operator;
     private int priority;
 
     //用来充当连接运算符
-    private boolean isConnection = false;
+    @Getter
+    private boolean connection = false;
     private boolean single = false;
 
     private String origin = null;
 
     //是否是连接运算符
     public Operator(){
-        // 随便找个符号表示连接
+        // 随便找个符号表示连接,用于输出测试,和实际逻辑没关系.
         origin = "●";
-        isConnection = true;
+        connection = true;
         priority = 2;
     }
 
@@ -25,6 +28,7 @@ public class Operator implements Comparable<Operator>,Element{
     //其次     * +
     //其次     连接
     //其次     |
+
     public Operator(char operator){
         origin = ""+operator;
         this.operator = operator;

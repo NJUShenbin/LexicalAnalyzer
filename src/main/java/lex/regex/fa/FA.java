@@ -48,14 +48,15 @@ public class FA {
         Queue<State> queue = new LinkedList<>();
         Set<State> visited = new HashSet<>();
         queue.add(startState);
-
         while (!queue.isEmpty()){
             State current = queue.poll();
-            boolean notExist = visited.add(current);
-            if(notExist){
+            boolean exist = visited.contains(current);
+            if(!exist){
                 consumer.accept(current);
                 queue.addAll(current.nextStates());
+                visited.add(current);
             }
+
         }
     }
 
@@ -72,10 +73,22 @@ public class FA {
 
             for (Integer edge : state.getNonEpsilonEdge()){
                 for (State oneState : state.move(edge)){
-                    System.out.println(state.name+" --"+edge+"--> "+oneState.name);
+                    System.out.println(state.name+" --"
+                            +(char)edge.intValue()
+                            +"--> "+oneState.name);
                 }
             }
 
+        });
+    }
+
+    /**
+     * 将所有state id重置为递增的,方便debug
+     */
+    public void resetIncreasedId(){
+        StateIdGenerator generator = new StateIdGenerator();
+        this.forEach(s->{
+            s.setName(generator.generate());
         });
     }
 

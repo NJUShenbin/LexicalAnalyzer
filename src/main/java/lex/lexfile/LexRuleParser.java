@@ -44,7 +44,6 @@ public class LexRuleParser {
             rules.add(new LexRule(generator.generate(),k,v));
         });
 
-        System.out.println(rules);
     }
 
     private class IdGenerator{
