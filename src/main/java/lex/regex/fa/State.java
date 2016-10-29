@@ -52,6 +52,11 @@ public class State {
         patternIds.add(Integer.parseInt(patternId));
     }
 
+    public void setAccept(Collection<Integer> patternIds){
+        accept = true;
+        this.patternIds.addAll(patternIds);
+    }
+
     public Collection<State> move(Integer edge){
         if(edge==null){
             return epsilonStates;

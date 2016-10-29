@@ -92,7 +92,7 @@ public class DFABuilder {
         for(Integer edge:edgeMap.keys()){
             Set<State> epsnClosure
                     = epsnClosureComputer.calculateEpsnClosure(edgeMap.get(edge));
-            edgeClosureMap.replaceValues(edge,epsnClosure);
+            edgeClosureMap.putAll(edge,epsnClosure);
         }
         return edgeClosureMap;
     }
