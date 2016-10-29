@@ -32,6 +32,7 @@ public class RegexEvaluater {
             executor.popAndExecute(operatorStack.pop(),wrapperStack);
         }
 
+
         return wrapperStack.pop().getFa();
     }
 

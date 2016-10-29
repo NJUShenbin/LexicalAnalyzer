@@ -18,6 +18,7 @@ public class NFAWrapper {
         this.fa = fa;
         this.start = fa.getStartState();
         this.end = end;
+        end.setAccept(true);
     }
 
 }

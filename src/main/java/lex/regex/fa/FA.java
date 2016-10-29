@@ -1,5 +1,6 @@
 package lex.regex.fa;
 
+import lex.util.BreadthFirstSearcher;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,19 +46,12 @@ public class FA {
 
     public void forEach(Consumer<State> consumer){
         //广度优先搜索
-        Queue<State> queue = new LinkedList<>();
-        Set<State> visited = new HashSet<>();
-        queue.add(startState);
-        while (!queue.isEmpty()){
-            State current = queue.poll();
-            boolean exist = visited.contains(current);
-            if(!exist){
-                consumer.accept(current);
-                queue.addAll(current.nextStates());
-                visited.add(current);
-            }
-
-        }
+        BreadthFirstSearcher.search(
+                Arrays.asList(startState),
+                state ->{
+                    consumer.accept(state);
+                    return state.nextStates();
+                });
     }
 
     public void reset(){
@@ -68,18 +62,37 @@ public class FA {
     public void print(){
         this.forEach(state -> {
             for(State oneState : state.move(null)){
-                System.out.println(state.name+" --epsn--> "+oneState.name);
+                printOneEdge(state,oneState,null);
             }
 
             for (Integer edge : state.getNonEpsilonEdge()){
                 for (State oneState : state.move(edge)){
-                    System.out.println(state.name+" --"
-                            +(char)edge.intValue()
-                            +"--> "+oneState.name);
+                    printOneEdge(state,oneState,edge);
                 }
             }
 
         });
+    }
+
+    private void printOneEdge(State start,State end,Integer edge){
+        String stateName = start.name;
+        String oneStateName = end.name;
+
+        if(start.isAccept()){
+            stateName+="(a)";
+        }
+        if(end.isAccept()){
+            oneStateName+="(a)";
+        }
+
+        if(edge!=null){
+            System.out.println(stateName+" --"
+                    +(char)edge.intValue()
+                    +"--> "+oneStateName);
+        }else {
+            System.out.println(stateName+" --epsn--> "+oneStateName);
+        }
+
     }
 
     /**

@@ -30,14 +30,14 @@ public class RegexCompiler {
                 new PatternRegexElementMap(patternRegexMap);
 
         //正则表达式->NFA
-        FA nfa = nfaBuilder.build(elementMap.getRegexElementMap());
+        FA fa = nfaBuilder.build(elementMap.getRegexElementMap());
         //NFA->DFA
-        FA dfa = dfaBuilder.convertToDFA(nfa);
+        fa = dfaBuilder.convertToDFA(fa);
         //DFA->DFA°
-        dfa = dfaMinimizer.minimizer(dfa);
+        fa = dfaMinimizer.minimizer(fa);
 
-        dfa.resetIncreasedId();
-        dfa.print();
+        fa.resetIncreasedId();
+        fa.print();
 
         return null;
     }

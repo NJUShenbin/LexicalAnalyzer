@@ -117,6 +117,7 @@ public class RegexOperatorExecutor {
         fa.getStartState().addEdge(null,after.getStart());
 
         State newEnd = fa.createState();
+        newEnd.setAccept(true);
         before.getEnd().addEdge(null,newEnd);
         after.getEnd().addEdge(null,newEnd);
         return new NFAWrapper(fa,newEnd);
