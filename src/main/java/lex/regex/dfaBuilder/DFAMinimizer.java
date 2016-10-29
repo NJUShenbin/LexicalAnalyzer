@@ -6,10 +6,7 @@ import lex.regex.fa.State;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by sbin on 2016/10/28.
@@ -17,6 +14,7 @@ import java.util.TreeMap;
 public class DFAMinimizer {
 
     GroupDivider divider = new GroupDivider();
+    MinDfaBuilder minDfaBuilder = new MinDfaBuilder();
 
     public FA minimizer(FA dfa){
 
@@ -32,7 +30,7 @@ public class DFAMinimizer {
             }
         }
 
-        return dfa;
+        return minDfaBuilder.build(groups,dfa.getStartState());
     }
 
     private Set<Set<State>> divideGroups(Set<Set<State>> groups){
@@ -45,19 +43,21 @@ public class DFAMinimizer {
     }
 
     private Set<Set<State>> initDivide(FA dfa){
-        HashSet<State> acceptSet = new HashSet<>();
+        Set<HashSet<State>> acceptSet = new HashSet<>();
         HashSet<State> unAcceptSet = new HashSet<>();
 
         dfa.forEach(s->{
             if(s.isAccept()){
-                acceptSet.add(s);
+                //这里要把不同结束状态分为不同组
+                acceptSet.add(Sets.newHashSet(s));
             }else{
                 unAcceptSet.add(s);
             }
         });
 
-        return Sets.newHashSet(acceptSet,unAcceptSet);
-
+        Set<Set<State>> result = new HashSet<>(acceptSet);
+        result.add(unAcceptSet);
+        return result;
     }
 
     private class Change{

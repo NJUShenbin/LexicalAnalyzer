@@ -21,6 +21,8 @@ public class Lex {
         LexFileInfo info = lexFileParser.parse(filePath);
         PatternMap patternMap = new PatternMap(info.getRules());
 
+        System.out.println(patternMap.getPatternRegexMap());
+
         FA fa = regexCompiler.compile(patternMap.getPatternRegexMap());
 
         lexGenerator.generate(fa,patternMap.getPatternActionMap(),

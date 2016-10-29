@@ -10,6 +10,9 @@ import lex.mainFlow.Lex;
 public class Main {
 
     public static void main(String[] args) {
-        new Lex().generate("./myLex-test.lex");
+        String fileName = "./myLex-test.lex";
+//        String fileName = "./myLex.lex";
+        new Lex().generate(fileName);
+
     }
 }

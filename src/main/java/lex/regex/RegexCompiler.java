@@ -34,7 +34,7 @@ public class RegexCompiler {
         //NFA->DFA
         fa = dfaBuilder.convertToDFA(fa);
         //DFA->DFA°
-        fa = dfaMinimizer.minimizer(fa);
+//        fa = dfaMinimizer.minimizer(fa);
 
         fa.resetIncreasedId();
         fa.print();

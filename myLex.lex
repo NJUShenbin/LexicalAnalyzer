@@ -37,6 +37,6 @@ else    : { }
 /       : { }
 \(      : { }
 \)      : { }
-aa*(b*|cd*(a|bbc)(ccc|dd))* : { }
+#aa*(b*|cd*(a|bbc)(ccc|dd))* : { }
 
 %%

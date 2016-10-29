@@ -82,7 +82,11 @@ public class FA {
             stateName+="(a)";
         }
         if(end.isAccept()){
-            oneStateName+="(a)";
+            oneStateName+="(a)[";
+            for(int id : end.getPatternIds()){
+                oneStateName+=id+",";
+            }
+            oneStateName += "]";
         }
 
         if(edge!=null){
