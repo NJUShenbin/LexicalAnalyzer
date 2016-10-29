@@ -13,7 +13,8 @@ number  {digit}+(\.{digit}*)
 %%
 
 
-{number}: { }
+\+ : { }
+
 
 #aa*(b*|cd*(a|bbc)(ccc|dd))* : { }
 #aa*(b|c)+ : {}

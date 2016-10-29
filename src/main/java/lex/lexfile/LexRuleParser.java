@@ -30,6 +30,7 @@ public class LexRuleParser {
             String[] splits = s.split(":",2);
             String regex = splits[0].trim();
             String action = splits[1].trim();
+            action = action.substring(1,action.length()-1).trim();
             regex = definitions.replaceDefinitions(regex);
 
             ruleMap.put(regex,action);

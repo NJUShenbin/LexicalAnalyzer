@@ -65,6 +65,14 @@ public class State {
         }
     }
 
+    public State moveToFirst(Integer edge){
+        if(edge==null){
+            return epsilonStates.iterator().next();
+        }else {
+            return multimap.get(edge).iterator().next();
+        }
+    }
+
     public void addEdge(Integer edge,State next){
         if(edge==null){
             epsilonStates.add(next);

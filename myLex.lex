@@ -8,35 +8,41 @@ ws      {delim}+
 letter  [abcdefghijklnmopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]
 digit   [0123456789]
 id      {letter}({letter}|{digit})*
-number  {digit}+(\.{digit}*)
+number  {digit}+(\.{digit}*)|{digit}+
 
 %%
 
-{ws}    : {
- dsad
-}
+{ws}    : { nothing }
 
-if      : {
-bbbb
-}
+if      : { keyword }
 
-else    : { }
+public  : { keyword }
+void    : {keyword}
+class   : {keyword}
+static  : {keyword}
+;       : {Punctuation}
+\.      : {Punctuation}
+int     : {keyword}
 
-\{      : { }
-\}      : { }
+else    : {keyword }
 
-{id}    : { }
-{number}: { }
-<       : { }
->       : { }
-<=      : { }
->=      : { }
-\+       : { }
--       : { }
-\*       : { }
-/       : { }
-\(      : { }
-\)      : { }
-#aa*(b*|cd*(a|bbc)(ccc|dd))* : { }
+\{      : { Punctuation }
+\}      : { Punctuation }
+\[      : {Punctuation }
+\]      : { Punctuation}
+
+{id}    : { id }
+{number}: { number }
+=       : { operator }
+<       : {operator }
+>       : {operator }
+<=      : {operator }
+>=      : {operator }
+\+      : {operator }
+-       : {operator }
+\*      : {operator }
+/       : {operator }
+\(      : {Punctuation }
+\)      : {Punctuation }
 
 %%

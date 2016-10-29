@@ -1,5 +1,6 @@
 package lex.regex;
 
+import lex.mainFlow.ProcessReporter;
 import lex.regex.dfaBuilder.DFABuilder;
 import lex.regex.dfaBuilder.DFAMinimizer;
 import lex.regex.fa.FA;
@@ -31,15 +32,18 @@ public class RegexCompiler {
 
         //正则表达式->NFA
         FA fa = nfaBuilder.build(elementMap.getRegexElementMap());
+        ProcessReporter.constructNFA(fa);
         //NFA->DFA
         fa = dfaBuilder.convertToDFA(fa);
+        ProcessReporter.constructDFA(fa);
         //DFA->DFA°
-//        fa = dfaMinimizer.minimizer(fa);
+        fa = dfaMinimizer.minimizer(fa);
+        ProcessReporter.minimizeDFA(fa);
 
-        fa.resetIncreasedId();
-        fa.print();
+//        fa.resetIncreasedId();
+//        fa.print();
 
-        return null;
+        return fa;
     }
 
     private void minimizeEachRegex(Map<String,String> patternRegexMap){

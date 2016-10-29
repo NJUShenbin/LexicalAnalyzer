@@ -41,10 +41,14 @@ public class Operand implements Element {
             case "\\n":
                 special = Special.newLine;
                 break;
-            case "\\.":
-                value = '.';
-                break;
+            default:
+                value = metaChar(specialOp);
         }
+    }
+
+    private char metaChar(String op){
+        assert op.length()==2;
+        return op.charAt(1);
     }
 
     public boolean isSpecial(){
