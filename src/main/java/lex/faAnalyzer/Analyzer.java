@@ -6,8 +6,8 @@ import com.google.common.io.Files;
 import lex.mainFlow.TargetFileName;
 import lex.regex.fa.FA;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +21,15 @@ public class Analyzer {
         String filename = TargetFileName.name;
         File lexFile = new File(filename);
         String fileContent = "";
+        File resultFile = new File("./analyzeResult");
+        BufferedWriter writer = null;
+        try {
+            resultFile.createNewFile();
+            writer = Files.newWriter(resultFile, Charsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         try {
             List<String> lines = Files.readLines(lexFile, Charsets.UTF_8);
             fileContent = Joiner.on("\n").join(lines);
@@ -39,16 +48,26 @@ public class Analyzer {
                 if(action.equals("nothing")){
                     continue;
                 }
-
-                System.out.println("<"
+                String line = "<"
                         +action
                         +","
                         +value
-                        +">"
-                );
+                        +">";
+
+                try {
+                    writer.write(line+"\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(line);
             }
         }
 
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
