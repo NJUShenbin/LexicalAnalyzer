@@ -44,7 +44,9 @@ public class DFABuilder {
             // 假如还没有包含这个闭包,就加进去.
             // 假如还没包含,说明广搜中也还没搜到,所以new一个新的state没问题
             if(!closureMap.containsKey(oneClosure)){
-                closureMap.put((Set<State>)oneClosure,new State());
+                closureMap.put(
+                        (Set<State>)oneClosure,
+                        createStateByClosure((Set<State>)oneClosure));
             }
             //将closure对应的state加一条边指向新计算出的closure对应的state
             closureState.addEdge(edge,closureMap.get(oneClosure));
@@ -59,12 +61,25 @@ public class DFABuilder {
 
     }
 
+    private State createStateByClosure(Set<State> closure){
+        State state = new State();
+
+        closure.forEach(s -> {
+            if (s.isAccept()){
+                assert s.getPatternIds().size()==1;
+                state.setAccept(s.getFirstPatternId());
+            }
+        });
+
+        return state;
+    }
+
     /**
      *
      * @param stateList 一个epsn闭包
      * @return 边和对应的epsn闭包
      */
-    public HashMultimap<Integer,State> computeEdgeMap(Iterable<State> stateList){
+     HashMultimap<Integer,State> computeEdgeMap(Iterable<State> stateList){
         //值是set<State> 不会重复
         HashMultimap<Integer,State> edgeMap = HashMultimap.create();
         for(State state : stateList){

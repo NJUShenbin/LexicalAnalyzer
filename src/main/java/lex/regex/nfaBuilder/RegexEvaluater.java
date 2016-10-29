@@ -33,7 +33,10 @@ public class RegexEvaluater {
         }
 
 
-        return wrapperStack.pop().getFa();
+        NFAWrapper resultWrapper = wrapperStack.pop();
+        assert  resultWrapper.getEnd().isAccept();
+        resultWrapper.getEnd().setAccept(patternId);
+        return resultWrapper.getFa();
     }
 
     private void handleOperator(Operator op){

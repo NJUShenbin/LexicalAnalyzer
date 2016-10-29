@@ -58,7 +58,6 @@ public class EpsnClosureComputerTest {
 
     @Test
     public void testEdgeMap(){
-
         System.out.println(dfaBuilder.computeEdgeMap(Arrays.asList(s0,s1)));
     }
 
